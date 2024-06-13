@@ -6,30 +6,32 @@ try:
     conexion = db.connect(
         driver="{SQL Server}",
         server="DESKTOP-NICO",
-        database="nico_db",
-        trusted_connection="yes"# Es para conectarse desde Windows
+        database="nico_db"
     )
     print("Conexión exitosa")
 except db.Error as ex:
     print(f"Error al conectar: {ex}")
 
 # CONSULTAS..
-insertar = "INSERT INTO MiTabla (ID, Mensaje) VALUES (5, '5to Elemento');"
-consulta = "SELECT * FROM MiTabla;"
-
+queries = \
+    [
+        "INSERT INTO MiTabla (ID, Mensaje) VALUES (5, '5to Elemento');",
+        "SELECT * FROM MiTabla;"
+    ]
 
 # Ejecuto la consulta de inserción y confirmo la transacción
 try:
     cursor = conexion.cursor() #Utilizo cursor para manejar la conexion
-    cursor.execute(insertar)
+    for item in queries:
+        cursor.execute(item)
+
     #conexion.commit()  #Con commit confirmo la transacción si no lo implemento puedo ver como va a quedar
     print("Inserción realizada con éxito")
 
-    # Ejecutar la consulta de selección y guardar en una variable -> result
-    cursor.execute(consulta)
+    # guardar en una variable -> result
     result = cursor.fetchall()
 
-    #print(result) Imprimir de forma simple pero en una sola linea.
+    #print(result) -> Imprimir de forma simple pero en una sola linea.
     # Recorrer e imprimir de manera clara y ordenada.
     for row in result:
         print(row)
