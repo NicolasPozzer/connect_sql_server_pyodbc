@@ -7,17 +7,15 @@ try:
         driver="{SQL Server}",
         server="DESKTOP-NICO",
         database="nico_db",
-        trusted_connection='yes'
+        trusted_connection="yes"# Es para conectarse desde Windows
     )
     print("Conexión exitosa")
 except db.Error as ex:
     print(f"Error al conectar: {ex}")
 
-
 # CONSULTAS..
 insertar = "INSERT INTO MiTabla (ID, Mensaje) VALUES (5, '5to Elemento');"
 consulta = "SELECT * FROM MiTabla;"
-
 
 
 # Ejecuto la consulta de inserción y confirmo la transacción
@@ -31,8 +29,7 @@ try:
     cursor.execute(consulta)
     result = cursor.fetchall()
 
-    #print(result) Imprimir de forma simple pero en una sola linea
-
+    #print(result) Imprimir de forma simple pero en una sola linea.
     # Recorrer e imprimir de manera clara y ordenada.
     for row in result:
         print(row)
