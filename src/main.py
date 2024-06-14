@@ -1,48 +1,47 @@
 import pyodbc as db
 
-# Conectar a SQL Server usando la autenticación de Windows
+# Connect to SQL Server using Windows Authentication
 try:
-    conexion = db.connect(
+    conn = db.connect(
         driver="{SQL Server}",
         server="DESKTOP-NICO",
         database="nico_db"
     )
-    print("Conexión exitosa")
+    print("Successful connection")
 except db.Error as ex:
-    print(f"Error al conectar: {ex}")
+    print(f"Error connecting: {ex}")
 
-# Consulta de inserción
+# insert query
 insert_query = """
 INSERT INTO OtraTabla (ID, Mensaje)
-SELECT ID, Mensaje
+SELECT ID FROM MiTabla
 FROM MiTabla;
 """
 
-# Ejecuto la consulta de inserción y confirmo la transacción
+# I run the insert query and commit the transaction
 try:
-    cursor = conexion.cursor()  # Utilizo cursor para manejar la conexión
+    cursor = conn.cursor()  # I use cursor to manage the connection
 
-    # Ejecutar la consulta de inserción
+    # Execute the insert query
     cursor.execute(insert_query)
 
-    # Confirmar la transacción
-    conexion.commit()  # Con commit confirmo la transacción
-    print("Inserción realizada con éxito")
+    conn.commit() # Confirm the transaction
+    print("Insertion completed successfully")
 
-    # Consulta de selección para verificar los datos insertados
+    # Select query to verify inserted data
     select_query = "SELECT ID, Mensaje FROM OtraTabla;"
 
     cursor.execute(select_query)
 
-    # Obtener los resultados
+    # Get the results
     result = cursor.fetchall()
 
-    # Imprimir los resultados de manera clara y ordenada
+    # Print results clearly and orderly
     for row in result:
         print(row)
 except db.Error as ex:
-    print(f"Error al ejecutar la consulta: {ex}")
+    print(f"Error executing query: {ex}")
 finally:
-    # Cerrar la conexión aunque ocurran errores o no.
-    if 'conexion' in locals():
-        conexion.close()
+    # Close the connection whether errors occur or not.
+    if 'conn' in locals():
+        conn.close()
