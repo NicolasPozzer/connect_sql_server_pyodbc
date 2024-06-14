@@ -29,7 +29,7 @@ try:
     print("Insertion completed successfully")
 
     # Select query to verify inserted data
-    select_query = "SELECT ID, Mensaje FROM OtraTabla;"
+    select_query = "SELECT * FROM OtraTabla;"
 
     cursor.execute(select_query)
 
