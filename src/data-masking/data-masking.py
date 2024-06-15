@@ -1,7 +1,7 @@
 import pandas as pd
 from faker import Faker
 
-# Rename this field with the name of your file
+# Rename this field with the name of your file⬇⬇
 name_file = "data-in.csv" # Reads data from a .csv or .txt file.
 
 # Create instance Faker
